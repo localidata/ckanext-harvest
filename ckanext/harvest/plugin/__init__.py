@@ -141,8 +141,10 @@ class Harvest(MixinPlugin, p.SingletonPlugin, DefaultDatasetForm, DefaultTransla
             # package_show
             if data_dict.get('extras'):
                 data_dict['extras'][:] = [e for e in data_dict.get('extras', [])
-                                          if not e['key']
-                                          in ('harvest_object_id', 'harvest_source_id', 'harvest_source_title',)]
+                                          if e is not None
+                                            if not e
+                                                if not e['key']
+                                                in ('harvest_object_id', 'harvest_source_id', 'harvest_source_title',)]
 
             # We only want to add these extras at index time so they are part
             # of the cached data_dict used to display, search results etc. We
